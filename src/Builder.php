@@ -6,7 +6,13 @@ class Builder
 {
     public static function convert($name, $select, $arguments, $type)
     {
-        $str = $type . '{' . $name . '(' . self::convertArguments($arguments) . '){';
+        $str = $type . '{' . $name;
+
+        if (!empty($arguments)) {
+            $str .= '(' . self::convertArguments($arguments) . ')';
+        }
+
+        $str .= '{';
         $str .= self::convertSelect($select);
         $str .= '}}';
 
