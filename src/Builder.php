@@ -6,15 +6,7 @@ class Builder
 {
     public static function convert($name, $select, $arguments, $type)
     {
-        $str = '';
-
-        if ($type === 'mutation') {
-            $str .= 'mutation{';
-        } else {
-            $str .= 'query{';
-        }
-
-        $str .= $name . '(' . self::convertArguments($arguments) . '){';
+        $str = $type . '{' . $name . '(' . self::convertArguments($arguments) . '){';
         $str .= self::convertSelect($select);
         $str .= '}}';
 
