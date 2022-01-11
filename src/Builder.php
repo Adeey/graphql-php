@@ -62,7 +62,7 @@ class Builder
         if (is_int($string) || is_float($string)) {
             $str .= $string . ',';
         } elseif (is_bool($string)) {
-            $str .= $string ? 'true' : 'false' . ',';
+            $str .= $string ? 'true,' : 'false,';
         } elseif (ctype_upper($string)) {
             $str .= $string . ',';
         } else {
