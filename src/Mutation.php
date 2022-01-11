@@ -34,6 +34,11 @@ class Mutation extends Builder
         return self::convert($this->name, $this->select, $this->arguments, self::TYPE);
     }
 
+    public static function getPreparedQueryFrom($name, $select, $arguments = [])
+    {
+        return self::convert($name, $select, $arguments, self::TYPE);
+    }
+
     public function addArguments($arguments)
     {
         $this->arguments = $arguments;

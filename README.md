@@ -24,6 +24,21 @@ Steps to use:
 4. Get the builded query ```$mutation->getPreparedQuery();```
 5. Use the string in your request
 
+## OR
+
+You can build string by calling static method:
+```php
+// $arguments is optional
+Mutation::getPreparedQueryFrom('nameOfYourMutation', $selected, $arguments);
+Query::getPreparedQueryFrom('nameOfYourQuery', $selected, $arguments);
+```
+both of these methods will return string
+
+## Methods
+Methods that can be called from object
+1. To return current selected fields ```$object->getSelect()```
+2. To return current arguments ```$object->getArguments()```
+
 ## Where is arguments/select?
 ```graphql
 query {
