@@ -1,4 +1,5 @@
 {
+  "name": "adeey/graphql-php",
   "require": {
     "php": ">=5.4.0"
   },
