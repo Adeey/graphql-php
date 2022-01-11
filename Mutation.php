@@ -57,7 +57,7 @@ class Mutation extends MutationBuilder
         return $this->endpoint;
     }
 
-    public function isDuplicate($field)
+    private function isDuplicate($field)
     {
         foreach ($this->select as $item) {
             if ($item === $field) {
