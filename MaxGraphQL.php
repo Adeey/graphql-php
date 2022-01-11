@@ -8,7 +8,6 @@ class MutationBuilder
     {
         $str = '';
 
-        print_r($select);
         $str .= 'mutation{' . $name . '(' . self::convertArguments($arguments) . '){';
         $str .= self::convertSelect($select);
         $str .= '}}';
