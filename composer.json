@@ -1,11 +1,16 @@
 {
-  "name": "adeey/graphql-php",
-  "require": {
-    "php": ">=5.4.0"
-  },
-  "autoload": {
-      "psr-4": {
-          "adeey\\graphql-php\\": "src/"
-      }
-  }
+    "name": "adeey/graphql-php",
+    "description": "GraphQL php library",
+    "keywords": ["array", "graphql", "query", "field"],
+    "type": "library",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Adeey\\graphql-php\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0"
+    }
 }
