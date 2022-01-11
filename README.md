@@ -20,6 +20,14 @@ use 'MaxGraphQL\Mutation'; // For Mutation
 Steps to use:
 1. Create new class object ```$mutation = new Mutation('name');``` with mutation/query name
 2. Add what you want to select ```$mutation->addSelect(['test', 'name']);```
+   
+    2.1 Or you can pass a one name of field 
+   ```php
+    $mutation->addSelect('name');
+    $mutation->addSelect('test');
+    $mutation->getSelect(); // ['name', 'test']
+   ```
+   
 3. Add arguments(filters) to your query ```$mutation->addArguments(['test' => 123]);```
 4. Get the builded query ```$mutation->getPreparedQuery();```
 5. Use the string in your request
