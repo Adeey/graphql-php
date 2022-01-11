@@ -72,7 +72,7 @@ query {
     }
 }
 ```
-## PHP
+PHP code:
 ```php
 
 $whatIWantToSelect = [
@@ -136,7 +136,7 @@ mutation {
     }
 }
 ```
-## PHP
+PHP code:
 ```php
 
 $whatIWantToSelect = [
