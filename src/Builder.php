@@ -2,7 +2,7 @@
 
 namespace MaxGraphQL;
 
-class MutationBuilder
+class Builder
 {
     public static function convert($name, $select, $arguments)
     {

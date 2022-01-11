@@ -2,9 +2,9 @@
 
 namespace MaxGraphQL;
 
-include 'MaxGraphQL.php';
+include 'Builder.php';
 
-class Mutation extends MutationBuilder
+class Mutation extends Builder
 {
     private $name = '';
     private $select = [];
