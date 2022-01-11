@@ -6,9 +6,11 @@
     "minimum-stability": "stable",
     "license": "MIT",
     "autoload": {
-        "psr-4": {
-            "Adeey\\graphql-php\\": "src/"
-        }
+        "classmap": [
+            "src/Builder.php",
+            "src/Mutation.php",
+            "src/Query.php.php"
+        ]
     },
     "require": {
         "php": ">=5.4.0"
