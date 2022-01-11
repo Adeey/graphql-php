@@ -9,7 +9,7 @@
         "classmap": [
             "src/Builder.php",
             "src/Mutation.php",
-            "src/Query.php.php"
+            "src/Query.php"
         ]
     },
     "require": {
