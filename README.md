@@ -164,7 +164,7 @@ $mutationArguments = [
     ]
 ];
 
-$mutation = new Mutation('updateUser'); // users - name of mutation
+$mutation = new Mutation('updateUser'); // updateUser - name of mutation
 $mutation->addSelect($whatIWantToSelect);
 $mutation->addArguments($mutationArguments);
 
