@@ -4,11 +4,17 @@ namespace MaxGraphQL;
 
 class Builder
 {
-    public static function convert($name, $select, $arguments)
+    public static function convert($name, $select, $arguments, $type)
     {
         $str = '';
 
-        $str .= 'mutation{' . $name . '(' . self::convertArguments($arguments) . '){';
+        if ($type === 'mutation') {
+            $str .= 'mutation{';
+        } else {
+            $str .= 'query{';
+        }
+
+        $str .= $name . '(' . self::convertArguments($arguments) . '){';
         $str .= self::convertSelect($select);
         $str .= '}}';
 

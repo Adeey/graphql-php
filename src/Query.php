@@ -2,10 +2,10 @@
 
 namespace MaxGraphQL;
 
-class Mutation extends Builder
+class Query extends Builder
 {
     private $name = '';
-    const TYPE = 'mutation';
+    const TYPE = 'query';
     private $select = [];
     private $arguments = [];
 

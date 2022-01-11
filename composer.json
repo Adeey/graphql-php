@@ -1,0 +1,5 @@
+{
+  "require": {
+    "adeey/graphql-php": "^0.0.1"
+  }
+}
