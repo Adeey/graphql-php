@@ -4,7 +4,36 @@ namespace MaxGraphQL;
 
 class MutationBuilder
 {
-    public static function convert($array)
+    public static function convert($name, $select, $arguments)
+    {
+        $str = '';
+
+        print_r($select);
+        $str .= 'mutation{' . $name . '(' . self::convertArguments($arguments) . '){';
+        $str .= self::convertSelect($select);
+        $str .= '}}';
+
+        return $str;
+    }
+
+    private static function convertSelect($array)
+    {
+        $str = '';
+
+        foreach ($array as $index => $item) {
+            if (is_array($item)) {
+                $str .= $index . '{';
+                $str .= self::disArraySelect($item);
+                $str .= '},';
+            } else {
+                $str .= $item . ',';
+            }
+        }
+
+        return substr_replace($str ,'', -1);
+    }
+
+    private static function convertArguments($array)
     {
         $str = '';
 
@@ -12,16 +41,16 @@ class MutationBuilder
             $str .= $index . ':';
 
             if (is_array($value)) {
-                $str .= self::disArray($value);
+                $str .= self::disArrayArguments($value);
             } else {
-                $str .= self::checkString($value);
+                $str .= self::checkArgumentsString($value);
             }
         }
 
         return substr_replace($str ,'', -1);
     }
 
-    private static function checkString($string)
+    private static function checkArgumentsString($string)
     {
         $str = '';
 
@@ -38,7 +67,24 @@ class MutationBuilder
         return $str;
     }
 
-    private static function disArray($array)
+    private static function disArraySelect($array)
+    {
+        $str = '';
+
+        foreach ($array as $index => $value) {
+            if (is_array($value)) {
+                $str .= $index . '{' . self::disArraySelect($value) . '},';
+            } else {
+                $str .= $value . ',';
+            }
+        }
+
+        $str = substr_replace($str ,'', -1);
+
+        return $str;
+    }
+
+    private static function disArrayArguments($array)
     {
         $str = '';
 
@@ -54,9 +100,9 @@ class MutationBuilder
             }
 
             if (is_array($value)) {
-                $str .= self::disArray($value);
+                $str .= self::disArrayArguments($value);
             } else {
-                $str .= self::checkString($value);
+                $str .= self::checkArgumentsString($value);
             }
         }
 

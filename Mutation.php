@@ -2,23 +2,27 @@
 
 namespace MaxGraphQL;
 
+include 'MaxGraphQL.php';
+
 class Mutation extends MutationBuilder
 {
+    private $name = '';
     private $select = [];
     private $arguments = [];
     private $endpoint;
 
-    public function __construct($url)
+    public function __construct($url, $name)
     {
+        $this->name = $name;
         $this->endpoint = $url;
     }
 
     public function addSelect($field)
     {
         if (is_array($field)) {
-            foreach ($field as $item) {
+            foreach ($field as $index => $item) {
                 if (!$this->isDuplicate($item)) {
-                    $this->select[] = $item;
+                    $this->select[$index] = $item;
                 }
             }
         } else {
@@ -26,6 +30,11 @@ class Mutation extends MutationBuilder
                 $this->select[] = $field;
             }
         }
+    }
+
+    public function getPreparedQuery()
+    {
+        return self::convert($this->name, $this->select, $this->arguments);
     }
 
     public function addArguments($arguments)
