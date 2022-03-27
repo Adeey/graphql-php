@@ -5,9 +5,10 @@ namespace MaxGraphQL;
 class Query extends Builder
 {
     private $name = '';
-    const TYPE = 'query';
     private $select = [];
     private $arguments = [];
+
+    const TYPE = 'query';
 
     public function __construct($name)
     {

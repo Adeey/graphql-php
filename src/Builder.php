@@ -120,7 +120,8 @@ class Builder
         return $str;
     }
 
-    private static function arrayAssociative($array) {
+    private static function arrayAssociative($array)
+    {
         if (array_keys($array) !== range(0, count($array) - 1)) {
             return true;
         } else {

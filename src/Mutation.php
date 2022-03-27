@@ -5,9 +5,10 @@ namespace MaxGraphQL;
 class Mutation extends Builder
 {
     private $name = '';
-    const TYPE = 'mutation';
     private $select = [];
     private $arguments = [];
+
+    const TYPE = 'mutation';
 
     public function __construct($name)
     {
