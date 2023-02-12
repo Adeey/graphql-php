@@ -1,15 +1,16 @@
 {
     "name": "adeey/graphql-php",
     "description": "GraphQL php library",
-    "keywords": ["array", "graphql", "query", "field"],
+    "keywords": ["array", "graphql", "query", "field", "php", "graphql-php"],
     "type": "library",
     "minimum-stability": "stable",
     "license": "MIT",
     "autoload": {
         "classmap": [
-            "src/Builder.php",
-            "src/Mutation.php",
-            "src/Query.php"
+            "src/Core/TypeBuilder.php",
+            "src/Interfaces/Type.php",
+            "src/Types/Mutation.php",
+            "src/Types/Query.php"
         ]
     },
     "require": {

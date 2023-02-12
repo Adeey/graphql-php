@@ -12,8 +12,8 @@ composer require adeey/graphql-php
 
 require 'vendor/autoload.php';
 
-use MaxGraphQL\Query; // For Query
-use MaxGraphQL\Mutation; // For Mutation
+use MaxGraphQL\Types\Query; // For Query
+use MaxGraphQL\Types\Mutation; // For Mutation
 ```
 
 ## Steps to use

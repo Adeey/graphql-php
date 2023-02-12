@@ -1,18 +1,25 @@
 <?php
 
-namespace MaxGraphQL;
+namespace MaxGraphQL\Types;
 
-class Mutation extends Builder
+use MaxGraphQL\Core\TypeBuilder;
+use MaxGraphQL\Interfaces\Type;
+
+class Query extends TypeBuilder implements Type
 {
+    const TYPE = 'query';
     private $name = '';
     private $select = [];
     private $arguments = [];
 
-    const TYPE = 'mutation';
-
     public function __construct($name)
     {
         $this->name = $name;
+    }
+
+    public function __toString()
+    {
+        return $this->convert();
     }
 
     public function addSelect($field)
@@ -28,21 +35,23 @@ class Mutation extends Builder
                 $this->select[] = $field;
             }
         }
+        return $this;
     }
 
     public function getPreparedQuery()
     {
-        return self::convert($this->name, $this->select, $this->arguments, self::TYPE);
+        return $this->convert();
     }
 
     public static function getPreparedQueryFrom($name, $select, $arguments = [])
     {
-        return self::convert($name, $select, $arguments, self::TYPE);
+        return (new self($name))->addSelect($select)->addArguments($arguments)->getPreparedQuery();
     }
 
     public function addArguments($arguments)
     {
         $this->arguments = $arguments;
+        return $this;
     }
 
     public function getSelect()
@@ -55,14 +64,13 @@ class Mutation extends Builder
         return $this->arguments;
     }
 
-    private function isDuplicate($field)
+    public function getType()
     {
-        foreach ($this->select as $item) {
-            if ($item === $field) {
-                return true;
-            }
-        }
+        return self::TYPE;
+    }
 
-        return false;
+    public function getName()
+    {
+        return $this->name;
     }
 }

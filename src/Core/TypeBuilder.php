@@ -1,32 +1,32 @@
 <?php
 
-namespace MaxGraphQL;
+namespace MaxGraphQL\Core;
 
-class Builder
+abstract class TypeBuilder
 {
-    public static function convert($name, $select, $arguments, $type)
+    protected function convert()
     {
-        $str = $type . '{' . $name;
+        $str = $this->getType() . '{' . $this->getName();
 
-        if (!empty($arguments)) {
-            $str .= '(' . self::convertArguments($arguments) . ')';
+        if (!empty($this->getArguments())) {
+            $str .= '(' . $this->convertArguments() . ')';
         }
 
         $str .= '{';
-        $str .= self::convertSelect($select);
+        $str .= $this->convertSelect();
         $str .= '}}';
 
         return $str;
     }
 
-    private static function convertSelect($array)
+    private function convertSelect()
     {
         $str = '';
 
-        foreach ($array as $index => $item) {
+        foreach ($this->getSelect() as $index => $item) {
             if (is_array($item)) {
                 $str .= $index . '{';
-                $str .= self::disArraySelect($item);
+                $str .= $this->disArraySelect($item);
                 $str .= '},';
             } else {
                 $str .= $item . ',';
@@ -36,24 +36,24 @@ class Builder
         return substr_replace($str ,'', -1);
     }
 
-    private static function convertArguments($array)
+    private function convertArguments()
     {
         $str = '';
 
-        foreach ($array as $index => $value) {
+        foreach ($this->getArguments() as $index => $value) {
             $str .= $index . ':';
 
             if (is_array($value)) {
-                $str .= self::disArrayArguments($value);
+                $str .= $this->disArrayArguments($value);
             } else {
-                $str .= self::checkArgumentsString($value);
+                $str .= $this->checkArgumentsString($value);
             }
         }
 
         return substr_replace($str ,'', -1);
     }
 
-    private static function checkArgumentsString($string)
+    private function checkArgumentsString($string)
     {
         $str = '';
 
@@ -70,28 +70,26 @@ class Builder
         return $str;
     }
 
-    private static function disArraySelect($array)
+    private function disArraySelect($array)
     {
         $str = '';
 
         foreach ($array as $index => $value) {
             if (is_array($value)) {
-                $str .= $index . '{' . self::disArraySelect($value) . '},';
+                $str .= $index . '{' . $this->disArraySelect($value) . '},';
             } else {
                 $str .= $value . ',';
             }
         }
 
-        $str = substr_replace($str ,'', -1);
-
-        return $str;
+        return substr_replace($str ,'', -1);
     }
 
-    private static function disArrayArguments($array)
+    private function disArrayArguments($array)
     {
         $str = '';
 
-        if (self::arrayAssociative($array)) {
+        if ($this->isArrayAssociative($array)) {
             $str .= '{';
         } else {
             $str .= '[';
@@ -103,15 +101,15 @@ class Builder
             }
 
             if (is_array($value)) {
-                $str .= self::disArrayArguments($value);
+                $str .= $this->disArrayArguments($value);
             } else {
-                $str .= self::checkArgumentsString($value);
+                $str .= $this->checkArgumentsString($value);
             }
         }
 
         $str = substr_replace($str ,'', -1);
 
-        if (self::arrayAssociative($array)) {
+        if ($this->isArrayAssociative($array)) {
             $str .= '},';
         } else {
             $str .= '],';
@@ -120,12 +118,23 @@ class Builder
         return $str;
     }
 
-    private static function arrayAssociative($array)
+    private function isArrayAssociative($array)
     {
         if (array_keys($array) !== range(0, count($array) - 1)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    protected function isDuplicate($field)
+    {
+        foreach ($this->getSelect() as $item) {
+            if ($item === $field) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
