@@ -120,21 +120,11 @@ abstract class TypeBuilder
 
     private function isArrayAssociative($array)
     {
-        if (array_keys($array) !== range(0, count($array) - 1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return array_keys($array) !== range(0, count($array) - 1);
     }
 
     protected function isDuplicate($field)
     {
-        foreach ($this->getSelect() as $item) {
-            if ($item === $field) {
-                return true;
-            }
-        }
-
-        return false;
+        return isset($this->getSelect()[$field]);
     }
 }
