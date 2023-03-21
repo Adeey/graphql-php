@@ -125,6 +125,12 @@ abstract class TypeBuilder
 
     protected function isDuplicate($field)
     {
-        return isset($this->getSelect()[$field]);
+        foreach ($this->getSelect() as $item) {
+            if ($item === $field) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

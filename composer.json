@@ -7,13 +7,13 @@
     "license": "MIT",
     "autoload": {
         "classmap": [
-            "src/Core/TypeBuilder.php",
-            "src/Interfaces/Type.php",
-            "src/Types/Mutation.php",
-            "src/Types/Query.php"
+            "src/"
         ]
     },
     "require": {
         "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
     }
 }
