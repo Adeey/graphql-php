@@ -183,7 +183,7 @@ $whatIWantToSelect = [
 $mutationArguments = [
     'id' => '321', // look that id is in string format
     'data' => [
-        'name' => "Test",
+        'name' => 'Test',
         'age' => 32, // and the age is int
         'admin' => false
     ]
