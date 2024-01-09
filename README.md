@@ -98,6 +98,8 @@ query {
 PHP code:
 ```php
 
+use MaxGraphQL\FieldTypes\Enum;
+
 $whatIWantToSelect = [
     'id',
     'name',
@@ -115,7 +117,7 @@ $whatIWantToSelect = [
 ];
 
 $filteringArguments = [
-    'format' => 'ALL', // if you want write enum values you need to write it uppercase
+    'format' => new Enum('ALL'), // if you want write enum values you need to use Enum class
     'filter' => [
         'activeUsers' => true,
         'userIds' => [1,2]
