@@ -2,8 +2,13 @@
 
 namespace MaxGraphQL\Core;
 
+use MaxGraphQL\Interfaces\FieldType;
+
 abstract class TypeBuilder
 {
+    /**
+     * @return string
+     */
     protected function convert()
     {
         $str = $this->getType() . '{' . $this->getName();
@@ -61,10 +66,10 @@ abstract class TypeBuilder
             $str .= $string . ',';
         } elseif (is_bool($string)) {
             $str .= $string ? 'true,' : 'false,';
-        } elseif (ctype_upper($string)) {
-            $str .= $string . ',';
+        } elseif (is_object($string) && is_subclass_of($string, FieldType::class)) {
+            $str .= $string->getValue() . ',';
         } else {
-            $str .= '"' . $string .'",';
+            $str .= '"' . $string . '",';
         }
 
         return $str;
@@ -123,6 +128,10 @@ abstract class TypeBuilder
         return array_keys($array) !== range(0, count($array) - 1);
     }
 
+    /**
+     * @param $field
+     * @return bool
+     */
     protected function isDuplicate($field)
     {
         foreach ($this->getSelect() as $item) {

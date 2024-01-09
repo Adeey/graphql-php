@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use MaxGraphQL\Types\Query;
+use \MaxGraphQL\FieldTypes\Enum;
 
 class QueryTest extends TestCase
 {
@@ -24,7 +25,7 @@ class QueryTest extends TestCase
         $query = new Query('testing');
         $query
             ->addSelect(['test3' => ['test4']])
-            ->addArguments(['id' => '5', 'user_type' => 'ACCOUNT', 'test' => ['test2' => 5]]);
+            ->addArguments(['id' => '5', 'user_type' => new Enum('ACCOUNT'), 'test' => ['test2' => 5]]);
 
         $this->assertSame($string, $query->getPreparedQuery());
     }

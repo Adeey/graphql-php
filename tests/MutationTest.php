@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use MaxGraphQL\Types\Mutation;
+use \MaxGraphQL\FieldTypes\Enum;
 
 class MutationTest extends TestCase
 {
@@ -36,7 +37,7 @@ class MutationTest extends TestCase
         $mutation = new Mutation('testing');
         $mutation
             ->addSelect(['test3' => ['test4']])
-            ->addArguments(['id' => ['user_id' => '5', 'user_type' => 'ACCOUNT'], 'test' => ['test2' => 5]]);
+            ->addArguments(['id' => ['user_id' => '5', 'user_type' => new Enum('ACCOUNT')], 'test' => ['test2' => 5]]);
 
         $this->assertSame($string, $mutation->getPreparedQuery());
     }
