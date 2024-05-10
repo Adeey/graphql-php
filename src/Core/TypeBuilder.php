@@ -63,16 +63,18 @@ abstract class TypeBuilder
         $str = '';
 
         if (is_int($string) || is_float($string)) {
-            $str .= $string . ',';
+            $str .= $string;
         } elseif (is_bool($string)) {
-            $str .= $string ? 'true,' : 'false,';
+            $str .= $string ? 'true' : 'false';
         } elseif (is_object($string) && is_subclass_of($string, FieldType::class)) {
-            $str .= $string->getValue() . ',';
+            $str .= $string->getValue();
+        } elseif (is_null($string)) {
+            $str .= 'null';
         } else {
-            $str .= '"' . $string . '",';
+            $str .= '"' . $string . '"';
         }
 
-        return $str;
+        return $str . ',';
     }
 
     private function disArraySelect($array)
