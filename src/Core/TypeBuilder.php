@@ -138,8 +138,9 @@ abstract class TypeBuilder
     protected function isDuplicate($field, $index = null)
     {
         foreach ($this->getSelect() as $itemIndex => $item) {
+            $indexCheck = !is_null($index) && is_array($field);
 
-            if (((!is_null($index) && $index === $itemIndex) || is_null($index)) && $item === $field) {
+            if ((($indexCheck && $index === $itemIndex) || !$indexCheck) && $item === $field) {
                 return true;
             }
         }
