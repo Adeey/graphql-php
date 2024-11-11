@@ -36,7 +36,7 @@ class Mutation extends TypeBuilder implements Type
     {
         if (is_array($field)) {
             foreach ($field as $index => $item) {
-                if (!$this->isDuplicate($item)) {
+                if (!$this->isDuplicate($item, $index)) {
                     $this->select[$index] = $item;
                 }
             }

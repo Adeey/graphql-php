@@ -132,12 +132,15 @@ abstract class TypeBuilder
 
     /**
      * @param $field
+     * @param mixed $index
      * @return bool
      */
-    protected function isDuplicate($field)
+    protected function isDuplicate($field, $index = null)
     {
-        foreach ($this->getSelect() as $item) {
-            if ($item === $field) {
+        foreach ($this->getSelect() as $itemIndex => $item) {
+            $indexCheck = !is_null($index) && is_array($field);
+
+            if ((($indexCheck && $index === $itemIndex) || !$indexCheck) && $item === $field) {
                 return true;
             }
         }
